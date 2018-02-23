@@ -65,10 +65,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkLocationPermission() == false){
 
-            checkLocationPermission();
-        }
+                Toast.makeText(this, "is false", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "is true", Toast.LENGTH_SHORT).show();
+                getCurrentLocation();
+
+            }
+
+
 
     }
 
@@ -87,6 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Toast.makeText(MapsActivity.this, "Current location found", Toast.LENGTH_SHORT).show();
                             Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),15f);
+
 
                         }else {
                             Toast.makeText(MapsActivity.this, "Current location not found", Toast.LENGTH_SHORT).show();
@@ -128,12 +135,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //buildGoogleApiClient();
                 //mMap.setMyLocationEnabled(true);
+
+                Toast.makeText(MapsActivity.this, "TEST", Toast.LENGTH_LONG).show();
+
                 getCurrentLocation();
+
             }
         } else {
             //buildGoogleApiClient();
             //mMap.setMyLocationEnabled(true);
-        }
+            Toast.makeText(MapsActivity.this, "TEST FAIL", Toast.LENGTH_LONG).show();
+
+        }            Toast.makeText(MapsActivity.this, "TEST OUTSIDE", Toast.LENGTH_LONG).show();
+
+
         mMap.setOnMarkerDragListener(this);
         mMap.setOnMarkerClickListener(this);
     }
@@ -208,6 +223,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[2] = new LatLng(end_latitude, end_longitude);
 
                 getDirectionsData.execute(dataTransfer);
+
                 //Toast.makeText(MapsActivity.this, "Showing directions",Toast.LENGTH_LONG).show();
 
 
@@ -270,15 +286,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ActivityCompat.requestPermissions(this, new String[]{
                                 Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSION_REQUEST_LOCATION_CODE);
-                initMap();
+
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{
                                 Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSION_REQUEST_LOCATION_CODE);
             }
+            initMap();
             return false;
+
         } else
-            return true;
+        {//initMap();
+        return true;}
+
     }
 
     private void initMap() {
@@ -304,6 +324,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //This method is depricated.It is not showing the current location
         //if (ContextCompat.checkSelfPermission(this,
           //      Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+
+
            // LocationServices.FusedLocationApi.requestLocationUpdates(mClient, mLocationRequest, this);
 
 
@@ -388,7 +411,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.zoomBy(10));
 
         if(mClient !=null){
-            LocationServices.FusedLocationApi.removeLocationUpdates(mClient,this);
+
+            //this method is depricated
+            //LocationServices.FusedLocationApi.removeLocationUpdates(mClient,this);
         }
     }
 

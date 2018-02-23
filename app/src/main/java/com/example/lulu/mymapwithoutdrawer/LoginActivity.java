@@ -3,6 +3,7 @@ package com.example.lulu.mymapwithoutdrawer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -38,6 +39,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    DBHelperClass myDB;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -92,6 +95,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        Button mEmailRegisterButton = (Button) findViewById(R.id.email_register_button);
+        mEmailRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void populateAutoComplete() {
@@ -306,7 +318,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+           // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -325,6 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here.
             return true;
+
         }
 
         @Override

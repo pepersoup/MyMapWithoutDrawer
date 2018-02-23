@@ -9,35 +9,68 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    DBHelperClass myDb;
+    DBHelperClass myDbHelper = new DBHelperClass(this);
     EditText editName, editPassword, editEmail, editAddress;
-    Button btn_register;
+    //Button btn_register;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        myDb = new DBHelperClass(this);
+        myDbHelper = new DBHelperClass(this);
 
-        editName = (EditText) findViewById(R.id.editText_Name);
-        editPassword = (EditText) findViewById(R.id.editText_Password);
-        editEmail = (EditText) findViewById(R.id.editText_Email);
-        editAddress = (EditText) findViewById(R.id.editText_address);
-        btn_register = (Button) findViewById(R.id.button_register);
-
-
-        InsertRegisterData();
     }
 
-    public void InsertRegisterData() {
+    public void onRegisterClick(View view){
+        if(view.getId()==R.id.button_register){
+
+            editName = findViewById(R.id.editText_Name);
+            editPassword = findViewById(R.id.editText_Password);
+            editEmail = findViewById(R.id.editText_Email);
+            editAddress = findViewById(R.id.editText_address);
+
+            String editNameStr = editName.getText().toString();
+            String editEmailStr = editEmail.getText().toString();
+            String editAddressStr = editAddress.getText().toString();
+            String editPasswordStr = editPassword.getText().toString();
+
+            Contact contact = new Contact();
+
+            contact.setName(editNameStr);
+            contact.setEmail(editEmailStr);
+            contact.setAddress(editAddressStr);
+            contact.setPassword(editPasswordStr);
+
+            boolean isInserted= myDbHelper.insertContact(contact);
+
+            if (isInserted) {
+                Toast.makeText(RegisterActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(RegisterActivity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
+    /*public void InsertRegisterData() {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isInserted = myDb.insertDataUsers(editName.getText().toString(),
-                        editPassword.getText().toString(),
+                Contact contact = new Contact();
+
+                contact.setName(editName.getText().toString());
+                contact.setEmail(editEmail.getText().toString());
+                contact.setAddress(editAddress.getText().toString());
+                contact.setPassword(editPassword.getText().toString());
+
+                myDb.insertDataUsers();
+                boolean isInserted = myDb.insertDataUsers(
+                        editName.getText().toString(),
                         editEmail.getText().toString(),
-                        editAddress.getText().toString());
+                        editAddress.getText().toString(),
+                        editPassword.getText().toString()
+                        );
                 if (isInserted) {
                     Toast.makeText(RegisterActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 } else {
@@ -45,8 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }
             }
-
         }
         );
-    }
+    }*/
 }

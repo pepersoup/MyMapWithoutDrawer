@@ -4,26 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.lulu.mymapwithoutdrawer.RegisterActivity">
 
     <ProgressBar
         android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="gone" />
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parents"
-        android:layout_height="match_parent"
+    <ScrollView
+        android:id="@+id/Register_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/editText_Name"
@@ -31,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="@string/name" />
 
             <EditText
                 android:id="@+id/editText_Email"
@@ -39,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                tools:text="Email" />
+                tools:hint="@string/email" />
 
             <EditText
                 android:id="@+id/editText_address"
@@ -47,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPostalAddress"
-                tools:text="Post Code" />
+                tools:hint="@string/address" />
 
             <EditText
                 android:id="@+id/editText_Password"
@@ -55,14 +62,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="Password" />
+                android:hint="@string/password" />
 
             <Button
                 android:id="@+id/button_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:text="@string/action_submit" />
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 </LinearLayout>
